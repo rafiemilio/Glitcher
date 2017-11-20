@@ -1,2 +1,2 @@
-# Glitch
-Glitch, Game-Off Game Jam
+# Glitcher
+Glitcher, Game-Off Game Jam
