@@ -1,7 +1,7 @@
 ﻿/*
 ---------------------------------------
 
-By Rafi Emilio Alam 
+Rafi Emilio Alam 
 for the Game Off game jam
 
 ---------------------------------------
@@ -13,18 +13,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Icon : MonoBehaviour, IPointerDownHandler {
+public class Icon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
 	[Header("Computer Reference")]
 	[SerializeField] Computer computer;
 	[Space(20)]
+	
 	[SerializeField] int desktopIcon;
 	[Header("Icons")]
 	Image icon;
 	[SerializeField] Sprite whiteIcon;
 	[SerializeField] Sprite blackIcon;
 	[SerializeField] Text title;
+	[SerializeField] Image titleImage;
 	[SerializeField] Image highlight;	
+	[Space(20)]
+	
+	[SerializeField] Transform dragLayer;
+
+	static public GameObject draggedItem;
+	Vector3 startPosition;
+	Transform startParent;
+
+	[SerializeField] GameObject window;
 
 	// Use this for initialization
 	void Start () {
@@ -36,13 +47,23 @@ public class Icon : MonoBehaviour, IPointerDownHandler {
 
 		if (computer.desktopIconSelected == desktopIcon) {
 			if (icon.sprite != blackIcon) {
-				title.color = new Color (1,1,1);
+				if (titleImage) {
+					titleImage.color = new Color (1,0,0);
+				} else {
+					title.color = new Color (1,1,1);
+				}
+				
 				highlight.color = new Color(0,0,0);
 				icon.sprite = blackIcon;
 			}
 		} else {
 			if (icon.sprite != whiteIcon) {
-				title.color = new Color (0,0,0);
+				if (titleImage) {
+					titleImage.color = new Color (1,1,1);
+				} else {
+					title.color = new Color (0,0,0);
+				}
+
 				highlight.color = new Color(1,1,1);
 				icon.sprite = whiteIcon;
 			}
@@ -51,6 +72,30 @@ public class Icon : MonoBehaviour, IPointerDownHandler {
 	}
 
 	public void OnPointerDown(PointerEventData eventData) {
-		computer.desktopIconSelected = desktopIcon;
+		if (computer.desktopIconSelected == desktopIcon) {
+			window.GetComponent<RectTransform>().SetAsLastSibling();
+			window.SetActive(true);
+		} else {
+			computer.desktopIconSelected = desktopIcon;
+		}
+		
+	}
+
+	public void OnBeginDrag (PointerEventData eventData) {
+		draggedItem = gameObject;
+		startPosition = transform.position;
+		startParent = transform.parent;
+		transform.SetParent(dragLayer);
+		GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+	}
+	public void OnDrag (PointerEventData eventData) {
+		transform.position = Input.mousePosition;
+	}
+	public void OnEndDrag (PointerEventData eventData) {
+		draggedItem = null;
+		transform.position = startPosition;
+		transform.SetParent(startParent);
+		GetComponent<CanvasGroup>().blocksRaycasts = true;
 	}
 }

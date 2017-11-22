@@ -1,7 +1,7 @@
 ﻿/*
 ---------------------------------------
 
-By Rafi Emilio Alam 
+Rafi Emilio Alam 
 for the Game Off game jam
 
 ---------------------------------------
