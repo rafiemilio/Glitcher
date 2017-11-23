@@ -9,14 +9,17 @@ public class Glitcher : MonoBehaviour, IPointerDownHandler {
 	[SerializeField] Transform glitch;
 
 	Vector3 targetPosition;
+	Animator anim;
+	int animState;
 
 	// Use this for initialization
 	void Start () {
+		anim = glitch.GetComponent<Animator>();
 		targetPosition = glitch.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		KeyMove();
 	}
 
@@ -33,14 +36,24 @@ public class Glitcher : MonoBehaviour, IPointerDownHandler {
 	
 		if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0) {
 			glitch.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			if (animState != 0) {
+				animState = 0;
+				anim.SetInteger("state", animState);
+			}
 		}
 
 		if (Input.GetAxis("Vertical") != 0 && Input.GetAxis("Horizontal") == 0) {
 			glitch.GetComponent<Rigidbody>().velocity = move;
 			if (Input.GetAxis("Vertical") > 0) {
-				//animstate = 1;
+				if (animState != 1) {
+					animState = 1;
+					anim.SetInteger("state", animState);
+				}
 			} else {
-				//animstate = 0;
+				if (animState != 4) {
+					animState = 4;
+					anim.SetInteger("state", animState);
+				}
 			}
 		}
 
@@ -48,9 +61,15 @@ public class Glitcher : MonoBehaviour, IPointerDownHandler {
 			glitch.GetComponent<Rigidbody>().velocity = move;
 			//animstate = 2;
 			if (Input.GetAxis("Horizontal") > 0) {
-				//sprite.transform.localScale = new Vector3 (-1,1,1);
+				if (animState != 3) {
+					animState = 3;
+					anim.SetInteger("state", animState);
+				}
 			} else {
-				//sprite.transform.localScale = new Vector3 (1,1,1);
+				if (animState != 2) {
+					animState = 2;
+					anim.SetInteger("state", animState);
+				}
 			}
 		}
 
