@@ -1,20 +1,29 @@
-﻿using System.Collections;
+﻿/*
+---------------------------------------
+
+Rafi Emilio Alam 
+for the Game Off game jam
+
+---------------------------------------
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AntiVirus : MonoBehaviour {
 
-	[SerializeField] GameObject player;
+	public GameObject player;
 	[SerializeField] Transform[] nodes;
 	[SerializeField] float speed = 1;
 	
 	[SerializeField] bool clockwise;
 	
-	[SerializeField] int currentNode;
-	
-	bool following;
+	int currentNode;
+
 	int animState;
 	Animator anim;
+	Vector3 move;
 
 	void Start () {
 		anim = GetComponent<Animator>();
@@ -22,8 +31,11 @@ public class AntiVirus : MonoBehaviour {
 	
 	void FixedUpdate () {
 
-		Patrol();
-		
+		if (player) {
+			Follow();	
+		} else {
+			Patrol();
+		}	
 	}
 
 	void Patrol () {
@@ -138,6 +150,45 @@ public class AntiVirus : MonoBehaviour {
 			}
 		}
 
+	}
+
+	void Follow () {
+
+		if (Mathf.Abs(player.transform.position.x - transform.position.x) > Mathf.Abs(player.transform.position.y - transform.position.y)) {
+
+			if (transform.position.x > player.transform.position.x) {
+				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
+				if (animState != 2) {
+					animState = 2;
+					anim.SetInteger("state", animState);
+				}
+			} else {
+				transform.position = new Vector3 (transform.position.x + speed, transform.position.y, transform.position.z);
+				if (animState != 3) {
+					animState = 3;
+					anim.SetInteger("state", animState);
+				}
+
+			}
+
+		} else {
+
+			if (transform.position.y > player.transform.position.y) {
+				transform.position = new Vector3 (transform.position.x, transform.position.y - speed, transform.position.z);
+				if (animState != 0) {
+					animState = 0;
+					anim.SetInteger("state", animState);
+				}
+
+			} else {
+				transform.position = new Vector3 (transform.position.x, transform.position.y + speed, transform.position.z);
+				if (animState != 1) {
+					animState = 1;
+					anim.SetInteger("state", animState);
+				}
+
+			}
+		}
 
 	}
 }
