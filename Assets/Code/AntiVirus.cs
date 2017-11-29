@@ -154,7 +154,7 @@ public class AntiVirus : MonoBehaviour {
 
 	void Follow () {
 
-		if (Mathf.Abs(player.transform.position.x - transform.position.x) > Mathf.Abs(player.transform.position.y - transform.position.y)) {
+		//if (Mathf.Abs(player.transform.position.x - transform.position.x) > Mathf.Abs(player.transform.position.y - transform.position.y)) {
 
 			if (transform.position.x > player.transform.position.x) {
 				transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
@@ -171,7 +171,7 @@ public class AntiVirus : MonoBehaviour {
 
 			}
 
-		} else {
+		//} else {
 
 			if (transform.position.y > player.transform.position.y) {
 				transform.position = new Vector3 (transform.position.x, transform.position.y - speed, transform.position.z);
@@ -188,7 +188,13 @@ public class AntiVirus : MonoBehaviour {
 				}
 
 			}
-		}
+		//}
 
+	}
+
+	void OnCollisionEnter (Collision other) {
+		if (other.gameObject.tag == "Player") {
+			LevelManager.reset = true;
+		}
 	}
 }

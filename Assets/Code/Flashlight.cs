@@ -29,7 +29,6 @@ public class Flashlight : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject.tag == "Player") {
 			av.player = other.gameObject;
-			LevelManager.reset = true;
 			spot.SetActive(true);
 		}
 	}

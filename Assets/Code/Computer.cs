@@ -14,19 +14,24 @@ using UnityEngine.UI;
 
 public class Computer : MonoBehaviour {
 
+	static public int corruption;
 	[Header("Boot Sequence")]
 	[SerializeField] GameObject bootImage;
 	[SerializeField] GameObject muifwegoLogo;
 	[SerializeField] GameObject menuBar;
 	[SerializeField] GameObject desktop;
+	[SerializeField] GameObject desktopGlitch;
+	[SerializeField] int maxCorruption;
 
 	[Header("Desktop Icons")]
 	public int desktopIconSelected;
 
 	AudioSource aud;
-
 	float time;
 	bool windowOpen;
+
+	[SerializeField] int corruptionTest;
+	[SerializeField] bool test;
 
 	void Awake () {
 		BootUp();
@@ -38,6 +43,28 @@ public class Computer : MonoBehaviour {
 	}
 	
 	void Update () {
+
+		if (test) {
+			corruption = corruptionTest;
+		}
+
+		if (corruption >= maxCorruption) {
+			if (!desktopGlitch.activeSelf) {
+				desktopGlitch.SetActive(true);
+			}
+		}
+
+		if (desktopIconSelected > 5) {
+			if (!windowOpen) {
+				windowOpen = true;
+			}
+			
+		} else {
+			if (windowOpen) {
+				windowOpen = false;
+			}
+		}
+
 		if (!windowOpen) {
 			DesktopKeys();
 		}

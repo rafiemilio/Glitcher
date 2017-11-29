@@ -11,21 +11,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Byte : MonoBehaviour {
+public class Source : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	[SerializeField] Window win;
+	[SerializeField] int corruption;
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject.tag == "Player") {
-			gameObject.SetActive(false);
+			if (Computer.corruption < corruption) {
+				Computer.corruption++;
+			}
+			win.CloseWindow();
 		}
 	}
 }

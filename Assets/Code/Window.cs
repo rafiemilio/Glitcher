@@ -21,6 +21,10 @@ public class Window : MonoBehaviour {
 
 	[SerializeField] Transform startPosition;
 	[SerializeField] Vector3 closePosition;
+	[SerializeField] int corruption;
+	[SerializeField] GameObject level;
+	[SerializeField] GameObject glitch;
+	[SerializeField] bool folder;
 
 	void OnEnable () {
 		closed = false;
@@ -35,6 +39,17 @@ public class Window : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (Computer.corruption == corruption && !folder) {
+			if (!level.activeSelf) {
+				level.SetActive(true);
+			}
+		}
+		if (Computer.corruption > corruption) {
+			if (!glitch.activeSelf) {
+				glitch.SetActive(true);
+			}
+		}
 
 		if (closed) {
 			Shrink();

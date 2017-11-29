@@ -36,6 +36,8 @@ public class Icon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDrag
 	Transform startParent;
 
 	[SerializeField] GameObject window;
+	[SerializeField] int corruption;
+	[SerializeField] GameObject glitch;
 
 	// Use this for initialization
 	void Start () {
@@ -44,6 +46,12 @@ public class Icon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDrag
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (Computer.corruption > corruption) {
+			if (!glitch.activeSelf) {
+				glitch.SetActive(true);
+			}
+		}
 
 		if (computer.desktopIconSelected == desktopIcon) {
 			if (icon.sprite != blackIcon) {
