@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: da480cf3c813e4b6da6bba0a8fcf3701
+timeCreated: 1511993863
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 8
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Serif Pixel-7
+  fontNames:
+  - Serif Pixel-7
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
