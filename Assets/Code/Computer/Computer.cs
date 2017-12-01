@@ -21,6 +21,7 @@ public class Computer : MonoBehaviour {
 	[SerializeField] GameObject menuBar;
 	[SerializeField] GameObject desktop;
 	[SerializeField] GameObject desktopGlitch;
+	[SerializeField] Text timer;
 	[SerializeField] int maxCorruption;
 
 	[Header("Desktop Icons")]
@@ -68,6 +69,10 @@ public class Computer : MonoBehaviour {
 		if (!windowOpen) {
 			DesktopKeys();
 		}
+
+		time += Time.deltaTime;
+		string minSec = string.Format("{0}:{1:00}:{2:00}", (int)time / 3600, ((int)time % 3600) / 60, ((int)time % 3600) % 60); 
+		timer.text = minSec;
 	}
 
 	void DesktopKeys () {

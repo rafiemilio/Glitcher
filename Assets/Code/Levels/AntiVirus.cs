@@ -22,12 +22,8 @@ public class AntiVirus : MonoBehaviour {
 	int currentNode;
 
 	int animState;
-	Animator anim;
+	[SerializeField] Animator anim;
 	Vector3 move;
-
-	void Start () {
-		anim = GetComponent<Animator>();
-	}
 	
 	void FixedUpdate () {
 

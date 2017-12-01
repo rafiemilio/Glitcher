@@ -13,6 +13,8 @@ using UnityEngine;
 
 public class Byte : MonoBehaviour {
 
+	[SerializeField] GameObject collect;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,6 +27,10 @@ public class Byte : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject.tag == "Player") {
+
+			GameObject collectClone = Instantiate(collect, transform.position, transform.rotation) as GameObject;
+			collectClone.transform.parent = transform.parent;
+			Destroy(collectClone, 1);
 			gameObject.SetActive(false);
 		}
 	}

@@ -17,7 +17,7 @@ public class Flashlight : MonoBehaviour {
 	[SerializeField] GameObject spot;
 
 	void Start () {
-		av = transform.parent.GetComponent<AntiVirus>();
+		av = transform.parent.parent.GetComponent<AntiVirus>();
 	}
 
 	void Update () {
