@@ -16,10 +16,11 @@ public class TextEdit : MonoBehaviour {
 
 	[SerializeField] RectTransform box;
 
-	int activeFont;
+	[SerializeField] int activeFont;
 	bool isBold;
 	bool isItalic;
 	bool isItalicbold;
+
 
 	// Use this for initialization
 	void Start () {
