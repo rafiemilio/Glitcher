@@ -80,6 +80,7 @@ public class LevelManager : MonoBehaviour {
 				bytes[i].SetActive(true);
 			}
 			time = 0;
+			byteCount = 0;
 			reset = false;
 		}
 

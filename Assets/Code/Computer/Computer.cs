@@ -34,6 +34,11 @@ public class Computer : MonoBehaviour {
 	[SerializeField] int corruptionTest;
 	[SerializeField] bool test;
 
+	bool ending;
+	bool restartReady;
+	[SerializeField] GameObject bsod;
+	[SerializeField] Text score;
+
 	void Awake () {
 		BootUp();
 	}
@@ -42,8 +47,30 @@ public class Computer : MonoBehaviour {
 		aud = GetComponent<AudioSource>();
 		StartCoroutine("BootSequence");
 	}
+
+	public void Restart () {
+		corruption = 0;
+		Application.LoadLevel(0);
+	}
+
+	IEnumerator End () {
+		yield return new WaitForSeconds(3);
+		bsod.SetActive(true);
+		time += Time.deltaTime;
+		string minSec = string.Format("{0}:{1:00}:{2:00}", (int)time / 3600, ((int)time % 3600) / 60, ((int)time % 3600) % 60); 
+		score.text = minSec;
+		yield return new WaitForSeconds(1);
+		restartReady = true;
+	}
 	
 	void Update () {
+
+		if (restartReady) {
+			if (Input.GetKeyDown(KeyCode.Return)) {
+				bsod.GetComponent<Image>().color = new Color (0,0,0);
+				Restart();
+			}
+		}
 
 		if (test) {
 			corruption = corruptionTest;
@@ -53,6 +80,13 @@ public class Computer : MonoBehaviour {
 			if (!desktopGlitch.activeSelf) {
 				desktopGlitch.SetActive(true);
 			}
+
+			if (!ending) {
+				StartCoroutine("End");
+				ending = true;
+			}
+
+
 		}
 
 		if (desktopIconSelected > 5) {
